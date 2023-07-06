@@ -1,0 +1,78 @@
+unit TextEditor;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Memo.Types,
+  System.Actions, FMX.ActnList, FMX.ScrollBox, FMX.Memo,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Menus;
+
+type
+  TTextEditorForm = class(TForm)
+    ActionList: TActionList;
+    MainMenu: TMainMenu;
+    StatusBar: TStatusBar;
+    Editor: TMemo;
+    OpenFileDialog: TOpenDialog;
+    SaveFileDialog: TSaveDialog;
+    NewAction: TAction;
+    OpenAction: TAction;
+    SaveAction: TAction;
+    SaveAsAction: TAction;
+    ExitAction: TAction;
+    CutAction: TAction;
+    CopyActoin: TAction;
+    PasteAction: TAction;
+    SelectAllAction: TAction;
+    UndoAction: TAction;
+    DeleteAction: TAction;
+    FileMenu: TMenuItem;
+    EditMenu: TMenuItem;
+    FormatMenu: TMenuItem;
+    NewMenu: TMenuItem;
+    OpenMenu: TMenuItem;
+    SaveMenu: TMenuItem;
+    SaveAsMenu: TMenuItem;
+    ExitMenu: TMenuItem;
+    CutMenu: TMenuItem;
+    CopyMenu: TMenuItem;
+    PasteMenu: TMenuItem;
+    SelectAllMenu: TMenuItem;
+    UndoMenu: TMenuItem;
+    DeleteMenu: TMenuItem;
+    WordWrapMenu: TMenuItem;
+    WordWrapAction: TAction;
+    LineNumber: TLabel;
+    ColumnNumber: TLabel;
+    LineCount: TLabel;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+    CurrentFile: String;
+    procedure UpdateStatusBar;
+  public
+    { Public declarations }
+  end;
+
+var
+  TextEditorForm: TTextEditorForm;
+
+implementation
+
+{$R *.fmx}
+
+procedure TTextEditorForm.FormCreate(Sender: TObject);
+begin
+  Editor.Lines.Add('');
+  UpdateStatusBar;
+end;
+
+procedure TTextEditorForm.UpdateStatusBar;
+begin
+LineNumber.Text := 'L: ' + (Editor.CaretPosition.Line+1).ToString;
+ColumnNumber.Text := 'C: ' + (Editor.CaretPosition.Pos+1).ToString;
+LineCount.Text := 'Lines: ' + Editor.Lines.ToString;
+end;
+
+end.
